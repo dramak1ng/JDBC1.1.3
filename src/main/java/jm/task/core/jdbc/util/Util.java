@@ -1,5 +1,9 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +20,24 @@ public class Util {
     private static String url;
     private static String username;
     private static String password;
+
+
+    public static SessionFactory sessionFactory = null;
+    public static SessionFactory getSessionFactory() {
+        if(sessionFactory==null) {
+            try {
+                Configuration configuration = new Configuration();
+                configuration.addAnnotatedClass(User.class);
+                sessionFactory = configuration.buildSessionFactory();
+            } catch (RuntimeException e) {
+
+                log.severe("ошибка при создании." + e);
+                throw new ExceptionInInitializerError(e);
+
+            }
+        }
+        return sessionFactory;
+    }
 
     public static Connection getConnection() throws SQLException, IOException {
 
@@ -39,7 +61,20 @@ public class Util {
 
         }
         return connection;
+
+
+
+
+
     }
-}
+
+
+
+    //
+    //---Hib
+    //
+
+    }
+
 
 
