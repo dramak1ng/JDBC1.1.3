@@ -14,8 +14,6 @@ public class Main {
         user.saveUser("ew","re", (byte) 32);
         user.saveUser("re","re", (byte) 42);
         System.out.println(user.getAllUsers());
-        user.cleanUsersTable();
-        user.dropUsersTable();
 
 
     }
